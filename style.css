@@ -11,6 +11,8 @@
 		border: 1px solid #b61c43;
 		border-radius: 5px;
 		background-color: #040c1b;
+		z-index: 0;
+		visibility: hidden;
 	}
 	.title {
 		font-size: 4em;
@@ -115,6 +117,64 @@
 		left: 65%;
 		color: #b61c43;
 	}
+	.home-screen {
+		position: absolute;
+		min-width: 500px;
+		min-height: 535px;
+		left: 17.4%;
+		border: 1px solid #040c1b;
+		border-radius: 5px;
+		background-color: #0b1b50;
+		z-index: 1;
+		visibility: visible;
+	}
+	.home-screen h1 {
+		position: absolute;
+		color: white;
+		font-size: 60px;
+		top: 15%;
+		left: 10%;
+		animation: change 3s linear infinite;
+	}
+
+	.play-button {
+		position: absolute;
+		left: 30%;
+		top: 75%;
+		width: 200px;
+		height: 40px;
+		margin-bottom: 20px;
+		border-radius: 15px;
+		font-size: x-large;
+		background-color: #040c1b;
+		color: white;
+		visibility: visible;
+	}
+	.play-button:hover {
+		background-color: #f7b239;
+		box-shadow: 0 24px 36px #b61c43, 0 24px 46px rgba(6, 93, 239, 0.48);
+		transform: translateY(-5px) scale(1.005) translateZ(0);
+	}
+	.emoji {
+		position: absolute;
+		left: 30%;
+		top: 40%;
+		background: url(img/emo.png);
+		width: 200px;
+		height: 188px;
+		border: 1px solid #0b1b50;
+		animation: emo 3s steps(3) infinite;
+	}
+
+	@keyframes emo {
+		from {
+			background-position: -0px 0px;
+		}
+
+		to {
+			background-position: -0px -600px;
+		}
+	}
 
 	@keyframes animate {
 		0% {
@@ -157,6 +217,7 @@
 		border: 1px solid #b61c43;
 		border-radius: 5px;
 		background-color: #040c1b;
+		visibility: hidden;
 	}
 	.title {
 		font-size: 4em;
@@ -239,7 +300,7 @@
 	}
 	.btn {
 		position: relative;
-		left: 30%;
+		left: 22%;
 		width: 200px;
 		height: 40px;
 		margin-bottom: 20px;
@@ -258,8 +319,59 @@
 	}
 	.autor {
 		position: relative;
-		left: 55%;
+		left: 54%;
 		color: #b61c43;
+		width: 45%;
+	}
+	.home-screen {
+		position: absolute;
+		min-width: 500px;
+		min-height: 500px;
+		margin: auto;
+		border: 1px solid #b61c43;
+		border-radius: 5px;
+		background-color: #0b1b50;
+		visibility: visible;
+	}
+	.home-screen h1 {
+		position: absolute;
+		color: white;
+		font-size: 60px;
+		top: 15%;
+		left: 10%;
+		animation: change 3s linear infinite;
+	}
+
+	.play-button {
+		position: absolute;
+		left: 30%;
+		top: 70%;
+		width: 200px;
+		height: 40px;
+		margin-bottom: 20px;
+		font-size: x-large;
+		background-color: #040c1b;
+		color: white;
+		visibility: visible;
+	}
+	.emoji {
+		position: absolute;
+		left: 30%;
+		top: 40%;
+		background: url(img/emo.png);
+		width: 200px;
+		height: 188px;
+		animation: emo 3s steps(3) infinite;
+	}
+
+	@keyframes emo {
+		from {
+			background-position: -0px 0px;
+		}
+
+		to {
+			background-position: -0px -600px;
+		}
 	}
 
 	@keyframes animate {

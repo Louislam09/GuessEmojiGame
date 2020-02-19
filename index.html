@@ -6,11 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guess Emojic</title>
     <link rel="stylesheet" href="style.css">
+    <script src="js/storage.js" defer></script>
     <script src="app.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="home-screen" id="homeScreen">
+        <!-- <h1>Guess Em😎ji</h1> -->
+        <h1>Guess Emoji</h1>
+        <div class="emoji"></div>
+        <button class="play-button" id="playButton">PLAY</button>
+    </div>
+    <div class="container" id="container">
         <div class="title">Guess The Word!</div>
         <div class="quiz-number" id="quizNumber"></div>
         <div class="emojic-panel" id="emojicPanel">

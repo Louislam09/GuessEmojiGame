@@ -2,27 +2,32 @@ const EMOJIBOX = document.getElementById('emojicPanel');
 var LETTERSBOX = document.getElementById('lettersPanel');
 var ANSWERBOX = document.getElementById('answerPanel');
 var quizNumber = document.getElementById('quizNumber');
+var playScreen = document.getElementById('container');
+var home = document.getElementById('homeScreen');
 const btn = document.getElementById('btn');
+const playButton = document.getElementById('playButton');
 var level = 0;
-var currentLevel;
+var currentLevel = level + 1;
+var name;
+var welcome = false;
 const EMOJIS = [
-	'📱 + 🍎',
-	'👨 + 🕷🕸',
-	'🍔 + 👑',
-	'👙 + 🚿',
+	'📱🍎',
+	'👨🕷🕸',
+	'🍔👑',
+	'👙🚿',
 	'⚾️🧢',
 	'🤕🚑💉🏥',
-	'💰+🔫',
+	'💰🔫',
 	'🐄🤠👢',
 	'0️⃣0️⃣7️⃣🔫',
-	'🚪+🛎',
+	'🚪🛎',
 	'👨🔨⚡️',
 	'👨📬✉️',
 	'⛹️‍♀️🏀🗑',
 	'👨 🎣🐟',
-	'🕶+☀️',
-	'🐡+🎈',
-	'✉️+❤️',
+	'🕶☀️',
+	'🐡🎈',
+	'✉️❤️',
 	'🎨👨🖼',
 	'👮‍♂️🚔',
 	'📚✏️👨‍🎓🏫',
@@ -52,13 +57,20 @@ const ANSWERS = [
 	'PLAYA'
 ];
 
-currentLevel = level + 1;
+const clickSound = new Audio();
+clickSound.src = 'sound/clickSound.ogg';
+const errorSound = new Audio();
+errorSound.src = 'sound/error.mp3';
+const correctSound = new Audio();
+correctSound.src = 'sound/correct.mp3';
 
-alert(`Click en la letra 
-		para agregarla o quitarla
-		de la respuesta!`);
 startQuiz(EMOJIS);
 btn.addEventListener('click', nextLevel);
+playButton.addEventListener('click', () => {
+	playButton.style.visibility = 'hidden';
+	home.style.visibility = 'hidden';
+	playScreen.style.visibility = 'visible';
+});
 
 function nextLevel() {
 	level += 1;
@@ -80,10 +92,13 @@ function nextLevel() {
 	LETTERSBOX.classList.remove('right');
 
 	// this start the game again but we a new level
+	addPlayerToSystem(name, level);
 	startQuiz(EMOJIS);
 }
 
 function startQuiz(quiz) {
+	authPlayer();
+
 	if (quiz[level]) {
 		let style = `style="color:white"`;
 
@@ -105,6 +120,7 @@ function startQuiz(quiz) {
 			var char = e.target;
 
 			char.remove();
+			clickSound.play();
 
 			ANSWERBOX.innerHTML += `<span>${char.innerText}</span>`;
 
@@ -119,9 +135,11 @@ function startQuiz(quiz) {
 				ANSWERBOX.classList.add('correct');
 				LETTERSBOX.classList.add('right');
 				btn.classList.add('show');
+				correctSound.play();
 			} else if (ANSWERS[level].length === ANSWERBOX.innerText.length) {
 				ANSWERBOX.classList.add('incorrect');
 				LETTERSBOX.classList.add('wrong');
+				errorSound.play();
 			} else {
 				ANSWERBOX.classList.remove('incorrect');
 				ANSWERBOX.classList.remove('correct');
@@ -133,6 +151,7 @@ function startQuiz(quiz) {
 			var char = e.target;
 
 			char.remove();
+			clickSound.play();
 
 			LETTERSBOX.innerHTML += `<span>${char.innerText}</span>`;
 			checkForWin();
@@ -143,5 +162,23 @@ function startQuiz(quiz) {
 		}
 	} else {
 		EMOJIBOX.innerText = `Thanks For Playing The Game! New Level Soon!`;
+	}
+}
+
+function authPlayer() {
+	var existPlayer = getPlayerFromSytem(); // this get the player data from localstorage if not exist is null
+
+	if (existPlayer === null) {
+		name = prompt('Cual es tu nombre: ');
+		addPlayerToSystem(name, level);
+	} else {
+		name = existPlayer.name;
+		level = existPlayer.level;
+		currentLevel = level + 1;
+
+		if (!welcome) {
+			alert(`BIENVENIDO DE NUEVO ${name}!`);
+			welcome = true;
+		}
 	}
 }
